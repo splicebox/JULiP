@@ -26,11 +26,8 @@ Confidence intervals for expression estimates and quantitative measures of diffe
 Basic functionality for use on cluster / distributed computing system.
 
 ### <a name="installation"></a> Installation
-JULiP is written in Python. We use the Theano library at the backend. You can install the latest version from our GitHub repository. See below for detailed installation instructions.  
+JULiP is written in Python. We use the Theano library at the backend. You can install the latest version from our GitHub repository. To download the codes, you can clone this repository by
 
-#### Installation
-
-To download the codes, you can clone this repository by
 ```
 git clone https://github.com/Guangyu-Yang/julip2.git
 ```
