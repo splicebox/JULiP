@@ -39,13 +39,15 @@ git clone https://github.com/Guangyu-Yang/julip2.git
 #### Required Python modules:
 * [Theano](http://deeplearning.net/software/theano/), a Python library that define, optimize, and evaluate mathematical expressions involving multi-dimensional arrays.  
 * [numpy](www.numpy.org/), a fundamental package for scientific computing with Python  
-* [scipy](https://www.scipy.org/), a Python-based ecosystem of open-source software for mathematics, science, and engineering.  
+* [scipy](https://www.scipy.org/), a Python-based package for mathematics, science, and engineering.  
 * [statsmodels](http://www.statsmodels.org/stable/index.html), a Python module for the estimation of different statistical models, conducting statistical tests and data exploration.  
 * [pysam](https://github.com/pysam-developers/pysam), a Python library for working with SAM/BAM files through samtools.   
 * [pathos](https://pypi.python.org/pypi/pathos), a framework for heterogenous computing.  
 
 If you are using pip, install the packages with commands:  
+```
 pip install --user theano numpy scipy statsmodels pysam pathos
+```
 
 #### Other required software:  
 * [samtools](http://samtools.sourceforge.net/), for accessing SAM/BAM files
