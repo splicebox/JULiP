@@ -1,6 +1,6 @@
 ## JULiP2 ##
 
-Copyright (C) 2017-2018, and GNU GPL v3.0, by Guangyu Yang, Liliana Florea
+Copyright (C) 2017-2019, and GNU GPL v3.0, by Guangyu Yang, Liliana Florea
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.  
 
