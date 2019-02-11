@@ -1,6 +1,6 @@
 ## JULiP2 ##
 
-A program for reliable intron selection and for intron-level differential splicing from large collections of RNA-seq data *(manuscript in preparation)*.
+A program for accurate intron selection and for intron-level differential splicing from large collections of RNA-seq data *(manuscript in preparation)*.
 
 Copyright (C) 2017-2019, and GNU GPL v3.0, by Guangyu Yang, Liliana Florea
 
