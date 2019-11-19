@@ -22,7 +22,7 @@ def get_params():
     params['bam_file_list'] = params['data_directory'] + "bamFileList_2.txt"
     #params['bam_file_list'] = "/home-2/gyang22@jhu.edu/work/projects/HPVOP/Tophat/bamFileList.txt"
 
-    params['pickle_file'] = '667_Geuvadis_results.pkl'
+    params['pickle_file'] = 'results.pkl'
 
     params['seed'] = 1234
     params['updater'] = 'adam'
