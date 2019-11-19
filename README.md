@@ -46,7 +46,8 @@ git clone https://github.com/splicebox/JULiP.git
 
 If you are using pip, install the packages with commands:  
 ```
-pip install --user theano numpy scipy statsmodels pysam pathos
+pip2 install --user theano numpy scipy pysam pathos intervaltree
+pip2 install --user statsmodels
 ```
 
 #### Other required software:  
