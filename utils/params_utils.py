@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-####################################### parameters with default setting #########################
+####################################### parameters with default settings #########################
 def get_params():
     params = {}
     params['num_samples'] = 1
@@ -18,9 +18,8 @@ def get_params():
     params['patience'] = 2
     params['minibatch_size'] = 80
 
-    params['data_directory'] = "/home-2/gyang22@jhu.edu/julip/data/samples/"
+    params['data_directory'] = "./"
     params['bam_file_list'] = params['data_directory'] + "bamFileList_2.txt"
-    #params['bam_file_list'] = "/home-2/gyang22@jhu.edu/work/projects/HPVOP/Tophat/bamFileList.txt"
 
     params['pickle_file'] = 'results.pkl'
 
