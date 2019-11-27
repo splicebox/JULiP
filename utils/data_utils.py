@@ -21,14 +21,14 @@ def get_read_count_from(bam_file, seq_name=None):
         return counts_dict[seq_name]
 
 
-def generate_files(bam_file_list, _out_dir, file_type, threads=1, compress=True, save_list=True):
+def generate_files(bam_file_list, _out_dir, file_type, threads=1, compress=True, save_list=True, junc_str='--nh 5'):
     from os.path import splitext, dirname, basename, isdir, join
 
     def splice_file_func(out_dir, file_name, bam_file):
         splice_suffix = '.splice' if not compress else '.splice.gz'
         splice_file_name = join(out_dir, file_name + splice_suffix)
         splice_file = open(splice_file_name, 'w') if not compress else gzip.open(splice_file_name, 'wb')
-        splice_file.write(subprocess.Popen('bin/junc %s --nh 5' % bam_file, shell=True,
+        splice_file.write(subprocess.Popen('bin/junc %s %s' % (bam_file, junc_str), shell=True,
                                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT).stdout.read())
         splice_file.close()
         return splice_file_name
@@ -233,4 +233,3 @@ def get_gtf_info(file):
             intron_locations.append(location)
         transcript.intron_locations = intron_locations
     return genes, transcripts, exons, introns, gene_id_gene_dict, transcript_id_transcript_dict
-
