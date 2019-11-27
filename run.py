@@ -47,6 +47,12 @@ def get_arguments():
     parser.add_option("--debug", action="store_false", dest="debug", default=False,
                         help="add normalized read counts and raw read counts to differential analysis output file")
 
+    parser.add_option("--id-threshold", dest="id_threshold", type=float, default=0.1,
+                      help="threshold to filter intron detection outputs")
+
+    parser.add_option("--junc", dest="junc_str", type=str, default="--nh 5",
+                      help="provide options for the junc program")
+
     (options, args) = parser.parse_args()
 
     if len(sys.argv[1:]) == 0:
@@ -181,7 +187,7 @@ def differential_analysis(seq_gene_regions, seq_introns, splice_file_list, out_d
     diff_splicing_fh.close()
 
 
-def intron_detection(seq_gene_regions, seq_introns, splice_file_list, out_dir, threads=4):
+def intron_detection(seq_gene_regions, seq_introns, splice_file_list, out_dir, threads=4, epsilon=0.1):
     def init_process():
         global nb_model
         nb_model = NegativeBinomialModel(lo_beta=1e-4, lo_alpha=1e-4, hi_alpha=3, lr=1,
@@ -216,7 +222,6 @@ def intron_detection(seq_gene_regions, seq_introns, splice_file_list, out_dir, t
     logger.info("Writing results to files ...")
     results = dict(results)
 
-    epsilon = 1. / 10
     g = 0
     for _id, gene_region in id_gene_dict.items():
         if _id not in results:
@@ -249,7 +254,7 @@ def run(options):
     if options.splice_file_list is None:
         logger.info("Detecting splice junctions ...")
         splice_file_list = generate_files(options.bam_file_list, options.out_dir, 'splice_file',
-                                        threads=options.threads)
+                                        threads=options.threads, junc_str=options.junc_str)
     else:
         splice_file_list = options.splice_file_list
 
@@ -287,14 +292,14 @@ def run(options):
 
     if options.mode == 'differential-analysis':
         logger.info("Starting intron detection models")
-        intron_detection(seq_gene_regions, seq_introns, splice_file_list, options.out_dir, threads=options.threads)
+        intron_detection(seq_gene_regions, seq_introns, splice_file_list, options.out_dir, threads=options.threads, epsilon=options.id_threshold)
         logger.info("Starting differential analysis models")
         differential_analysis(seq_gene_regions, seq_introns, splice_file_list, options.out_dir,
                                             threads=options.threads, lambda_=options.test_method, debug=options.debug)
 
     if options.mode == 'intron-detection':
         logger.info("Starting intron detection models")
-        intron_detection(seq_gene_regions, seq_introns, splice_file_list, options.out_dir, threads=options.threads)
+        intron_detection(seq_gene_regions, seq_introns, splice_file_list, options.out_dir, threads=options.threads, epsilon=options.id_threshold)
 
 
 def main():
@@ -309,4 +314,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
