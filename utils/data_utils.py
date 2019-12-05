@@ -233,3 +233,4 @@ def get_gtf_info(file):
             intron_locations.append(location)
         transcript.intron_locations = intron_locations
     return genes, transcripts, exons, introns, gene_id_gene_dict, transcript_id_transcript_dict
+

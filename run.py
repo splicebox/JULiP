@@ -205,7 +205,6 @@ def intron_detection(seq_gene_regions, seq_introns, splice_file_list, out_dir, t
     logger.info("Preparing training data ...")
     scale_dict, file_counts_dict = get_file_seq_info(seq_introns)
     id_gene_dict, dataset = get_dataset_for_intron_detection(seq_gene_regions, scale_dict, file_counts_dict)
-    print("hello worlds in get_dataset_for_intron_detection")
 
     diff_splicing_fh = open(os.path.join(out_dir, 'introns.results.txt'), 'w')
     splicing_str = "\t".join(['ID', 'gene_id', 'gene_name', 'type', 'chromosome',
@@ -286,10 +285,6 @@ def run(options):
         logger.info("Applying reference annotation ...")
         seq_gene_regions = map_to_annotated_genes(options.annotation_file, seq_gene_regions, seq_introns, options.seq_name)
 
-    # for gene_regions in seq_gene_regions.values():
-    #     for gene_region in gene_regions:
-    #         print(len(gene_region.introns))
-
     if options.mode == 'differential-analysis':
         logger.info("Starting intron detection models")
         intron_detection(seq_gene_regions, seq_introns, splice_file_list, options.out_dir, threads=options.threads, epsilon=options.id_threshold)
@@ -309,8 +304,9 @@ def main():
     run(options)
     logger.info("End program")
     end = time.time()
-    logger.info("Julip took %f seconds to run" % (end - start))
+    logger.info("Julip took %.2f seconds to run" % (end - start))
 
 
 if __name__ == '__main__':
     main()
+

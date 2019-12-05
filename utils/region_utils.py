@@ -62,7 +62,7 @@ def get_regions_from(file_list, _seq_name=None, threads=1):
     return read_files_from(file_list, process_func, threads=threads, merge_func=merge_func)
 
 
-# assume the regions and boundaries are sorted
+# assume that the regions and boundaries are sorted
 def identify_exon_regions(seq_regions, seq_boundaries):
     def action(dst, src):
         dst.intron_boudaries += src.intron_boudaries
@@ -121,7 +121,7 @@ def write_seq_regions(file, seq_regions):
 
 
 ##############################################  intron utils  ##############################################
-def get_introns_from(splice_file_list, _seq_name=None, threads=1, _filter=3):
+def get_introns_from(splice_file_list, _seq_name=None, threads=1, _filter=3, non_canonical_intron_filter=30000):
     def process_func_1(line):
         tokens = line.split('\t')
         if len(tokens) == 2:
@@ -206,6 +206,11 @@ def get_introns_from(splice_file_list, _seq_name=None, threads=1, _filter=3):
     seq_intron_dict_dict = mapreduce(thread_list, process_func_3)
     n = len(file_dict)
     seq_introns = process_func_4(seq_intron_dict_dict.values(), n)
+    for introns in seq_introns.values():
+        for intron in introns:
+            start, end = intron.coordinate
+            if intron.strand == '?' and (end - start) > non_canonical_intron_filter:
+                introns.remove(intron)
     return seq_introns
 
 
@@ -600,6 +605,8 @@ def get_genes_from_annotation(annotation_file, seq_introns, target_seq=None, n=0
 
     for gene_regions in seq_gene_regions.values():
         gene_regions.sort(key=lambda region: (region.coordinate, region.strand))
+        for gene_region in gene_regions:
+            gene_region.introns = list(set(gene_region.introns))
     return seq_gene_regions
 
 
