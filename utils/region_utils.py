@@ -121,7 +121,7 @@ def write_seq_regions(file, seq_regions):
 
 
 ##############################################  intron utils  ##############################################
-def get_introns_from(splice_file_list, _seq_name=None, threads=1, _filter=3, non_canonical_intron_filter=30000):
+def get_introns_from(splice_file_list, _seq_name=None, threads=1, _filter=3, non_canonical_intron_filter=25000):
     def process_func_1(line):
         tokens = line.split('\t')
         if len(tokens) == 2:
